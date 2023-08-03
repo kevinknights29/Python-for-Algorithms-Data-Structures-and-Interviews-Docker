@@ -49,9 +49,8 @@ RUN pip install --no-cache-dir jupyterlab-spellchecker && \
 # Adding theme configuration to JupyterLab (Dark Theme)
 COPY ./overrides.json /opt/conda/share/jupyter/lab/settings/overrides.json
 
-# Uncomment if you need to pass requirements.txt
-# # Install from the requirements.txt file
-# COPY --chown=${NB_UID}:${NB_GID} requirements.txt /tmp/
-# RUN pip install --no-cache-dir --requirement /tmp/requirements.txt && \
-#     fix-permissions "${CONDA_DIR}" && \
-#     fix-permissions "/home/${NB_USER}"
+# Install from the requirements.txt file
+COPY --chown=${NB_UID}:${NB_GID} requirements.txt /tmp/
+RUN pip install --no-cache-dir --requirement /tmp/requirements.txt && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
